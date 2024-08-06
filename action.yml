@@ -12,6 +12,10 @@ inputs:
     description: 'The version of php to test under'
     required: true
     default: '8.3'
+  mysql_version:
+    description: 'The version of mysql to test under'
+    required: true
+    default: '8.0'
 outputs:
   results:
     description: 'QA results'
