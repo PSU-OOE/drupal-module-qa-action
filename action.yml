@@ -39,7 +39,7 @@ runs:
     - name: Checkout module
       uses: actions/checkout@v4
     - name: Copy module into drupal installation
-      run: mkdir -p ~/drupal/web/modules/contrib && cp -ar ~/work ~/drupal/web/modules/contrib
+      run: mkdir -p ~/drupal/web/modules/contrib && cp -ar ~/work/${{ github.event.repository.name }}/${{ github.event.repository.name }} ~/drupal/web/modules/contrib
       shell: bash
     - name: Debug dump
       run: ls -lah ~/drupal/web/modules/contrib/${{ github.event.repository.name }}
