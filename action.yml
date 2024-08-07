@@ -41,6 +41,9 @@ runs:
     - name: Copy module into drupal installation
       run: mkdir -p ~/drupal/web/modules/contrib && cp -ar ~/work/${{ github.event.repository.name }} ~/drupal/web/modules/contrib
       shell: bash
+    - name: Debug dump
+      run: ls -lah ~/drupal/web/modules/contrib/${{ github.event.repository.name }}
+      shell: bash
     - name: Check coding standards
       run: ~/drupal/vendor/bin/phpcs --standard=Drupal,DrupalPractice --extensions=php,module,install,js ~/drupal/web/modules/contrib/${{ github.event.repository.name }}
       shell: bash
