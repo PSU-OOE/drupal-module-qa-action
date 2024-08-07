@@ -1,40 +1,24 @@
 name: 'Drupal module quality assurance checker'
 description: 'Runs quality assurance checks against generic drupal modules'
 inputs:
-  module_name:
-    description: 'The name of the module to test'
+  profile:
+    description: 'The testing profile to enable, must be one of "current-major" or "next-major"'
     required: true
-  drupal_version:
-    description: 'The version of drupal core to test under'
-    required: true
-    default: '11.x-dev'
-  php_version:
-    description: 'The version of php to test under'
-    required: true
-    default: '8.3'
-  mysql_version:
-    description: 'The version of mysql to test under'
-    required: true
-    default: '8.0'
-outputs:
-  results:
-    description: 'QA results'
-    value: ${{ steps.linting.outputs.messages}}
 runs:
   using: "composite"
   steps:
     - name: Setup mysql
       uses: shogo82148/actions-setup-mysql@v1
       with:
-        mysql-version: ${{ inputs.mysql_version }}
+        mysql-version: '8.0'
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ inputs.php_version }}
+        php-version: '8.3'
     - name: Setup Drupal action
       uses: bluehorndigital/setup-drupal@v1.1.0
       with:
-        version: ${{ inputs.drupal_version }}
+        version: ${{ inputs.drupal_version == 'current-major' && '10.4.x-dev' || '11.x-dev' }}
         dependencies: 'drupal/coder:^8.3'
     - name: Checkout module
       uses: actions/checkout@v4
